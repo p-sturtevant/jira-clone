@@ -1,7 +1,6 @@
 import '@/styles/global.css';
 //import { Inter } from '@next/font/google';
 // import Sidebar from "@/components/Sidebar";
-// import clsx from "clsx";
 import GlassPane from '@/components/GlassPane';
 
 // const inter = Inter({
