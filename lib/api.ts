@@ -24,5 +24,10 @@ export const register = (user) => {
 };
 
 export const signin = (user) => {
-	return fetcher({ url: '/api/signin', method: 'post', body: user });
+	return fetcher({
+		url: '/api/signin',
+		method: 'post',
+		body: user,
+		json: false,
+	});
 };

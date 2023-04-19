@@ -1,12 +1,12 @@
 'use client';
 
-import Input from './Input';
+import { register, signin } from '@/lib/api';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useCallback, useState } from 'react';
 import Button from './Button';
 import Card from './Card';
-import { useRouter } from 'next/navigation';
-import { register, signin } from '@/lib/api';
-import { useCallback, useState } from 'react';
-import Link from 'next/link';
+import Input from './Input';
 
 const registerContent = {
 	linkUrl: '/signin',
@@ -19,28 +19,33 @@ const registerContent = {
 const signinContent = {
 	linkUrl: '/register',
 	linkText: "Don't have an account?",
-	header: 'Welcome Back!',
+	header: 'Welcome back!',
 	subheader: 'Enter your credentials to access your account',
 	buttonText: 'Sign In',
 };
 
 const initial = { email: '', password: '', firstName: '', lastName: '' };
 
-const AuthForm = ({ mode }: { mode: 'register' | 'signin' }) => {
+const AuthForm = ({ mode }) => {
 	const [formState, setFormState] = useState({ ...initial });
-	const [error, setError] = useState('');
 	const router = useRouter();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (mode === 'register') {
-			await register(formState);
-		} else {
-			await signin(formState);
-		}
 
-		setFormState({ ...initial });
-		router.replace('/home');
+		try {
+			if (mode === 'register') {
+				await register(formState);
+				console.log('yolo');
+			} else {
+				await signin(formState);
+			}
+
+			router.push('/home');
+			setFormState(initial);
+		} catch (e) {
+			console.error(e);
+		}
 	};
 
 	const content = mode === 'register' ? registerContent : signinContent;
