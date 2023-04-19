@@ -1,13 +1,13 @@
 import bcrypt from 'bcrypt';
 import { SignJWT, jwtVerify } from 'jose';
 import { db } from './db';
+
 export const hashPassword = (password) => bcrypt.hash(password, 10);
 
 export const comparePasswords = (plainTextPassword, hashedPassword) =>
 	bcrypt.compare(plainTextPassword, hashedPassword);
 
 export const createJWT = (user) => {
-	// return jwt.sign({ id: user.id }, 'cookies')
 	const iat = Math.floor(Date.now() / 1000);
 	const exp = iat + 60 * 60 * 24 * 7;
 
@@ -31,11 +31,11 @@ export const validateJWT = async (jwt) => {
 export const getUserFromCookie = async (cookies) => {
 	const jwt = cookies.get(process.env.COOKIE_NAME);
 
-	const { id } = await validateJWT(jwt);
+	const { id } = await validateJWT(jwt.value);
 
-	const { user } = await db.user.findUnique({
+	const user = await db.user.findUnique({
 		where: {
-			id: id as string,
+			id,
 		},
 	});
 

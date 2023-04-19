@@ -1,4 +1,4 @@
-const fetcher = async ({ url, method, body, json = true }) => {
+export const fetcher = async ({ url, method, body, json = true }) => {
 	const res = await fetch(url, {
 		method,
 		...(body && { body: JSON.stringify(body) }),
@@ -9,8 +9,8 @@ const fetcher = async ({ url, method, body, json = true }) => {
 	});
 
 	if (!res.ok) {
-		//error handle
-		throw new Error('API Error!');
+		// handle your errors
+		throw new Error('API error');
 	}
 
 	if (json) {
@@ -24,10 +24,5 @@ export const register = (user) => {
 };
 
 export const signin = (user) => {
-	return fetcher({
-		url: '/api/signin',
-		method: 'post',
-		body: user,
-		json: false,
-	});
+	return fetcher({ url: '/api/signin', method: 'post', body: user });
 };
