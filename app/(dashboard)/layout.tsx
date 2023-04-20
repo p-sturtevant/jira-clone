@@ -1,5 +1,5 @@
 import '@/styles/global.css';
-import { Inter } from '@next/font/google';
+import { Inter } from 'next/font/google';
 import GlassPane from '@/components/GlassPane';
 import Sidebar from '@/components/Sidebar';
 import { ReactElement } from 'react';
@@ -10,6 +10,7 @@ type DashboardRootLayoutProps = {
 
 const inter = Inter({
 	variable: '--font-inter',
+	subsets: ['latin'],
 });
 
 export default function DashboardRootLayout({

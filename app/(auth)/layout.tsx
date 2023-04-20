@@ -1,9 +1,10 @@
 import '@/styles/global.css';
 import GlassPane from '@/components/GlassPane';
-import { Inter } from '@next/font/google';
+import { Inter } from 'next/font/google';
 
 const inter = Inter({
 	variable: '--font-inter',
+	subsets: ['latin'],
 });
 
 export default function AuthRootLayout({ children }) {
