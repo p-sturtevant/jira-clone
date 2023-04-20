@@ -8,6 +8,7 @@ const nextConfig = {
 		ignoreBuildErrors: true,
 	},
 	eslint: {
+		//doesn't work?
 		ignoreDuringBuilds: true,
 	},
 };
